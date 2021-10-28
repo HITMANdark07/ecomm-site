@@ -80,7 +80,7 @@ export const Modal = ({TotalPrice,totalQty,hideModal}) => {
                     required value={cartQty}
                 />
                 <br></br>
-                <label>Total Price (inc. 18% GST) :</label>
+                <label>Total Price (inc. {((Number)(process.env.REACT_APP_CGST) + (Number)(process.env.REACT_APP_SGST))}% GST) :</label>
                 <input type="text" className='form-control' readOnly
                     required value={cartPrice}
                 />

@@ -78,7 +78,7 @@ export const Cart = () => {
     const reducerOfPrice = (accumulator,currentValue)=>accumulator+currentValue;
 
     const totalPrice = price.reduce(reducerOfPrice,0);
-    const totalWithGST = (totalPrice+totalPrice*0.28).toFixed(2);
+    const totalWithGST = (totalPrice+totalPrice*(((Number)(process.env.REACT_APP_CGST) + (Number)(process.env.REACT_APP_SGST))/100)).toFixed(2);
     // global variable
     let Product;
     
@@ -143,10 +143,10 @@ export const Cart = () => {
                         Total No of Products: <span>{totalQty}</span>
                         </div>
                         <div>
-                        Total Price: <span>$ {totalPrice}</span>
+                        Total Price: <span>₹ {totalPrice}</span>
                         </div>
                         <div>
-                        Total (inc. 28% GST) : <span>$ {totalWithGST}</span>
+                        Total (inc. {((Number)(process.env.REACT_APP_CGST) + (Number)(process.env.REACT_APP_SGST))}% GST) : <span>₹ {totalWithGST}</span>
                         </div>
                         <br></br>
 

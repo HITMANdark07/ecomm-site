@@ -50,7 +50,7 @@ export const Sales = ({history}) => {
     },[history]);
     const generateReport = useCallback((d1,d2) => {
         if(d1 && d2){
-            let data = _.filter(orders, (ord) => ord.date>d1 && ord.date<d2);
+            let data = _.filter(orders, (ord) => ord.date>d1 && ord.date<d2 && ord.status!=="CANCELED");
             setFilteredOrders(data);
         }
     },[orders]);
@@ -58,6 +58,7 @@ export const Sales = ({history}) => {
     useEffect(() => {
         generateReport(date1,date2);
     },[date1,date2,generateReport]);
+    const notCanceledOrders = orders.filter((ord) => ord.status!=="CANCELED");
     const handleChange = (e, name) => {
         switch(name){
             case "date1":
@@ -71,13 +72,12 @@ export const Sales = ({history}) => {
         }   
 
     }
-    
-    const totalSales = orders && orders.reduce((acc, emm) => ((Number)(emm.totalPrice)+acc),0);
-    const actualSale = ((totalSales*100)/128).toFixed(2);
+    const totalSales = notCanceledOrders && notCanceledOrders.reduce((acc, emm) => ((Number)(emm.totalPrice)+acc),0);
+    const actualSale = ((totalSales*100)/(100+(Number)(process.env.REACT_APP_CGST)+(Number)(process.env.REACT_APP_SGST))).toFixed(2);
     const taxCollected = (totalSales - actualSale).toFixed(2);
 
     const totalSalesRange = filteredOrders && filteredOrders.reduce((acc, emm) => ((Number)(emm.totalPrice)+acc),0);
-    const actualSaleRange = ((totalSalesRange*100)/128).toFixed(2);
+    const actualSaleRange = ((totalSalesRange*100)/((Number)(process.env.REACT_APP_CGST)+(Number)(process.env.REACT_APP_SGST)+100)).toFixed(2);
     const taxCollectedRange = (totalSalesRange - actualSaleRange).toFixed(2);
 
     return (

@@ -113,19 +113,19 @@ export const Bill = ({history,match:{params:{billID}}}) => {
                 <tr className="total">
 					<td></td>
 
-					<td>CGST @ 14% :  ₹{totalPrice && (totalPrice*0.14).toFixed(2)}/-</td>
+					<td>CGST @ {(Number)(process.env.REACT_APP_CGST)}% :  ₹{totalPrice && (totalPrice*(((Number)(process.env.REACT_APP_CGST))/100)).toFixed(2)}/-</td>
 				</tr>
                 <tr className="total">
 					<td></td>
 
-					<td>SGST @ 14% :  ₹{totalPrice && (totalPrice*0.14).toFixed(2)}/-</td>
+					<td>SGST @ {(Number)(process.env.REACT_APP_SGST)}% :  ₹{totalPrice && (totalPrice*(((Number)(process.env.REACT_APP_SGST))/100)).toFixed(2)}/-</td>
 				</tr>
 
 
                 <tr className="total">
 					<td></td>
 
-					<td>Total Amount (inc. 28% GST) :  ₹{order && order.totalPrice}/-</td>
+					<td>Total Amount (inc. {((Number)(process.env.REACT_APP_CGST) + (Number)(process.env.REACT_APP_SGST))}% GST) :  ₹{order && order.totalPrice}/-</td>
 				</tr>
 			</table>
 		</div>

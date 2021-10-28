@@ -62,7 +62,7 @@ export const Orders = ({history}) => {
                     <OrderProducts key={i} title={pro.title} imgUrl={pro.url} price={pro.price} quantity={pro.qty} />
                 ))}
             </div>
-            <div className="order-amount"><b>Total Payable Amount (inc. 28% GST)</b>: ₹ {ord.totalPrice}/-</div>
+            <div className="order-amount"><b>Total Payable Amount (inc. {(Number)(process.env.REACT_APP_CGST) + (Number)(process.env.REACT_APP_SGST)}% GST)</b>: ₹ {ord.totalPrice}/-</div>
             <div className="print"><button className="print-bill" onClick={() => history.push(`/bill/${ord.ID}`)}>
                 <span><Icon icon={ic_local_printshop} /></span> PRINT BILL</button></div>
         </div>
